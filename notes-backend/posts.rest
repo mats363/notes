@@ -1,0 +1,10 @@
+POST http://localhost:4000/posts/new
+Content-Type: application/json
+
+{
+    "postContent": "Test med rest"
+}
+
+###
+
+GET http://localhost:4000/posts

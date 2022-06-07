@@ -20,28 +20,22 @@ const connection = mysql.createConnection({
 
 app.listen(port, () => { console.log("Server is running on port: " + port)})
 
-app.get("/", (req, res) => {
-    res.send("Funkar");
-})
+const adminUser = {userName: "admin", password: "admin"}
 
 app.get("/posts", async (req, res)  => {
 
     try {
         const result = await connection.promise().execute("SELECT * FROM posts")
         console.log(result[0])
-        res.json(result);    
+        res.json(result[0]);    
         
     } catch (err) {
         res.json("Could not fetch posts");
-    }
-
-    
+    }    
 })
-
 
 app.post("/posts/new", async (req, res) => {
 
-    //const sql = "Testar en variabel i app.post"
     try {
         const result = await connection.execute(
             "INSERT INTO posts (postContent) VALUES (?)",
@@ -54,3 +48,36 @@ app.post("/posts/new", async (req, res) => {
   
 })
 
+app.get("/posts/:id", async (req, res) => {
+    
+    try {
+        const result = await connection.promise().execute(
+            "SELECT * FROM posts WHERE _id = ?",
+            [req.params.id]
+        );
+        res.json(result)
+    } catch(err) {
+        res.json("Could not find ID")
+    }
+})
+
+app.patch("/posts/:id", async (req, res) => {
+
+    try {
+        const result = await connection.promise().execute(
+            "UPDATE posts SET postContent = ? WHERE _id = ?",
+            [req.body.postContent, req.params.id]
+        )
+        res.json(result)
+    } catch (err) {
+        console.log("Does not work. At all.")
+    }
+})
+
+app.post("/login", (req, res, next) => {
+    if (req.body.password === adminUser.password && req.body.userName === adminUser.userName) {
+        res.json("Rätt användarnamn och lösenord!")
+    } else {
+        res.json("Fel användarnamn eller lösenord")
+    }
+})

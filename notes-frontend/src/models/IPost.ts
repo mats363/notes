@@ -1,4 +1,5 @@
 export interface IPost {
-    date: string,
-    content: string
+    _id: number;
+    postContent: string;
+    postDate: string;
 }

@@ -1,10 +1,15 @@
 import { Editor } from "@tinymce/tinymce-react"
 import axios from "axios";
 import { useRef, useState } from "react";
+import { isPropertySignature } from "typescript";
 import { INewPost } from "../models/INewPost";
+import { IPost } from "../models/IPost";
 import { Post } from "../models/Post";
 
-export function EditPost(doc: Post) {
+interface IChildComponentProps {
+    post: Post;
+}
+export function EditPost(props: IChildComponentProps) {
     
     const editorRef = useRef<any>();
     const testPost: Post = new Post(90, "testpost", "2022-03-22")
@@ -13,15 +18,15 @@ export function EditPost(doc: Post) {
         if (editorRef.current) {
             const content = {postContent: editorRef.current.getContent()};
             
-           // let response = await axios.put<INewPost>("http://localhost:4000/posts/new", content);
-           // console.log(response.data)
+           let response = await axios.patch<IPost>(`http://localhost:4000/posts/${props.post.id}`, content);
+           console.log(response.data)
           }
     }
 
     return (<>
         <Editor
         onInit={(evt, editor) => editorRef.current = editor}
-        initialValue="Här är texten"
+        initialValue={props.post.postContent}
         init={{
             
             height: 500,
@@ -38,7 +43,8 @@ export function EditPost(doc: Post) {
 
           
         />
-        <button onClick={submit}>Log editor content</button>
+        <button onClick={submit}>Spara ändringar</button>
+        <h2>{props.post.postContent}</h2>
     
     </>)
 }

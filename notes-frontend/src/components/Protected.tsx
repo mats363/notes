@@ -12,9 +12,20 @@ export function Protected() {
 
     useEffect(() => {
         console.log("useeffect i Protected körs")
+        
         let loginStatus = localStorage.getItem("loggedIn");
-        console.log(loginStatus);
-    })
+
+        if (loginStatus) {
+
+            if (loginStatus === "true") {
+                setIsAuth(true);
+            } else {
+                setIsAuth(false);
+            }
+
+        }
+ 
+    }, )
 
     // 
     // setIsAuth(true)

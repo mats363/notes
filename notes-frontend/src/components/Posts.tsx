@@ -3,7 +3,6 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import { IPost } from "../models/IPost";
 import { Post } from "../models/Post";
-import { PostService } from "../services/PostService";
 import { EditPost } from "./EditPost";
 
 export function Posts() {

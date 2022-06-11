@@ -78,9 +78,9 @@ app.patch("/posts/:id", async (req, res) => {
 app.post("/login", (req, res, next) => {
     if (req.body.username === adminUser.username && req.body.password === adminUser.password) {
         isLoggedIn = true;
-        res.json("Rätt användarnamn och lösenord!")
+        res.json("Rätt användarnamn och lösenord! " + isLoggedIn)
     } else {
         isLoggedIn = false;
-        res.status(401).json("Fel användarnamn eller lösenord")
+        res.status(401).json("Fel användarnamn eller lösenord " + isLoggedIn)
     }
 })

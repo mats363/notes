@@ -19,8 +19,8 @@ export function Login() {
         e.preventDefault();
         try {
             await axios.post("http://localhost:4000/login", user)
-            .then(res => {console.log(res)})
-            setIsLoggedIn(true)
+            .then(res => {console.log(res.data + " result")})
+            
             localStorage.setItem("loggedIn", JSON.stringify(isLoggedIn))
             
         } catch(err) {

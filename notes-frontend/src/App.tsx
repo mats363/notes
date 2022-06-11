@@ -4,11 +4,11 @@ import './App.css';
 
 function App() {
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  //const [isLoggedIn, setIsLoggedIn] = useState(false)
   function logOut() {
-   // setIsLoggedIn(false)
-    localStorage.setItem("loggedIn", "false");
+    setIsLoggedIn(false)
+    localStorage.setItem("loggedIn", JSON.stringify(isLoggedIn));
   }
 
   return (

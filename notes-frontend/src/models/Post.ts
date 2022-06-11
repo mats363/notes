@@ -1,3 +1,3 @@
 export class Post {
-    constructor(public id: number, public postContent: string, public postDate: string){}
+    constructor(public id: number, public postContent: string, public postDate: string, public postTitle: string){}
 }

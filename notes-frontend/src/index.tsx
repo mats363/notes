@@ -8,6 +8,7 @@ import { Login } from './components/Login';
 import { Post } from './components/Post';
 import { Posts } from './components/Posts';
 import { EditPost } from './components/EditPost';
+import { Protected } from './components/Protected';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -17,10 +18,11 @@ root.render(
     <App />
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/post" element={<Post/>}/>
-        <Route path="/posts" element={<Posts/>}/>
-       
+      <Route path="/" element={<Login/>}/>
+        <Route element={<Protected />}>
+          <Route path="/post" element={<Post/>}/>
+          <Route path="/posts" element={<Posts/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
     

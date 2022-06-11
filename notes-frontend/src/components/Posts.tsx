@@ -9,6 +9,7 @@ import { EditPost } from "./EditPost";
 export function Posts() {
 
     const [allPosts, setAllPosts] = useState<Post[]>([]);
+    const [edit, setEdit] = useState(false);
     
 
     useEffect(() => {
@@ -22,7 +23,7 @@ export function Posts() {
             
             let postsFromAPI = response.data.map((post: IPost) => {
                 console.log(post.postContent)
-                return new Post(post._id, post.postContent, post.postDate);
+                return new Post(post._id, post.postContent, post.postDate, post.postTitle);
             })           
             setAllPosts(postsFromAPI)
             console.log(allPosts)
@@ -30,15 +31,20 @@ export function Posts() {
 
         console.log(allPosts + " all posts")        
     });
+
+    function toggle() {
+        setEdit(!edit)
+    }
     
    let postHtml = allPosts.map((post) => {
        return (
            <div key={post.id} className="postContainer">
-               <h4>{post.postDate}</h4>
+               <h4 dangerouslySetInnerHTML={{ __html:post.postTitle}}></h4>
                <div dangerouslySetInnerHTML={{ __html:post.postContent}}></div>
-               <button> Redigera dokument</button>
+               <button onClick={toggle}>Edit document</button>
+               {edit && 
                <EditPost post={post}></EditPost>
-
+            }
                
            </div>
        )

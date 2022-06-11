@@ -1,3 +1,4 @@
 export interface INewPost {
-    postContent: string
+    postContent: string;
+    postTitle: string;
 }

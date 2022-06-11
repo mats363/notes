@@ -1,16 +1,21 @@
 import { Editor } from "@tinymce/tinymce-react"
 import axios from "axios";
-import { useRef, useState } from "react";
+import { ChangeEvent, ChangeEventHandler, useRef, useState } from "react";
 import { INewPost } from "../models/INewPost";
 
 export function Post() {
     
     const editorRef = useRef<any>();
+    const [title, setTitle] = useState("Untitled document");
+
+    function handleChange(e: ChangeEvent<HTMLInputElement>) {
+        setTitle(e.target.value)
+    }
 
     async function submit () {
         
         if (editorRef.current) {
-            const content = {postContent: editorRef.current.getContent()};
+            const content = {postContent: editorRef.current.getContent(), postTitle: title};
             
             let response = await axios.post<INewPost>("http://localhost:4000/posts/new", content);
             console.log(response.data)
@@ -18,10 +23,10 @@ export function Post() {
     }
 
     return (<>
-        
+        <input type="text" value={title} onChange={handleChange}></input>
         <Editor
         onInit={(evt, editor) => editorRef.current = editor}
-        initialValue="<h1>Skriv här</h1>"
+        initialValue="<p>Write something</p>"
         init={{
             
             height: 500,
@@ -38,7 +43,7 @@ export function Post() {
 
           
         />
-        <button onClick={submit}>Log editor content</button>
+        <button onClick={submit}>Save document</button>
     
     </>)
 }

@@ -20,7 +20,8 @@ const connection = mysql.createConnection({
 
 app.listen(port, () => { console.log("Server is running on port: " + port)})
 
-const adminUser = {userName: "admin", password: "admin"}
+const adminUser = {username: "admin", password: "admin"}
+let isLoggedIn;
 
 app.get("/posts", async (req, res)  => {
 
@@ -38,8 +39,8 @@ app.post("/posts/new", async (req, res) => {
 
     try {
         const result = await connection.execute(
-            "INSERT INTO posts (postContent) VALUES (?)",
-            [req.body.postContent]
+            "INSERT INTO posts (postContent, postTitle) VALUES (?, ?)",
+            [req.body.postContent, req.body.postTitle]
             )
         res.json("Post successful!");
     } catch(err) {
@@ -75,9 +76,11 @@ app.patch("/posts/:id", async (req, res) => {
 })
 
 app.post("/login", (req, res, next) => {
-    if (req.body.password === adminUser.password && req.body.userName === adminUser.userName) {
+    if (req.body.username === adminUser.username && req.body.password === adminUser.password) {
+        isLoggedIn = true;
         res.json("Rätt användarnamn och lösenord!")
     } else {
-        res.json("Fel användarnamn eller lösenord")
+        isLoggedIn = false;
+        res.status(401).json("Fel användarnamn eller lösenord")
     }
 })

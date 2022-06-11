@@ -12,7 +12,6 @@ interface IChildComponentProps {
 export function EditPost(props: IChildComponentProps) {
     
     const editorRef = useRef<any>();
-    const testPost: Post = new Post(90, "testpost", "2022-03-22")
     async function submit () {
         
         if (editorRef.current) {
@@ -44,7 +43,7 @@ export function EditPost(props: IChildComponentProps) {
           
         />
         <button onClick={submit}>Spara ändringar</button>
-        <h2>{props.post.postContent}</h2>
+        {/* <h2>{props.post.postContent}</h2> */}
     
     </>)
 }

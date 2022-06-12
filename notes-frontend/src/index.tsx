@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Login } from './components/Login/Login';
 import { Posts } from './components/Posts/Posts';
-import { Post } from './components/Post/Post';
 import { Nav } from './components/Nav/Nav';
+import { Post } from './components/Post/Post';
 
 
 const root = ReactDOM.createRoot(

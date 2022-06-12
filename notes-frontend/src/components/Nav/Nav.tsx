@@ -10,7 +10,8 @@ export function Nav() {
   let navigate = useNavigate();
   function logOut() {
     setIsLoggedIn(false)
-    localStorage.setItem("loggedIn", JSON.stringify(false));
+    localStorage.setItem("loggedIn", JSON.stringify(isLoggedIn));
+    window.location.reload()
     navigate("/")
   }
 

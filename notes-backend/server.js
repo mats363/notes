@@ -20,7 +20,7 @@ const connection = mysql.createConnection({
 
 app.listen(port, () => { console.log("Server is running on port: " + port)})
 
-const adminUser = {username: "admin", password: "admin"}
+const adminUser = {username: "janne", password: "janne"}
 let isLoggedIn;
 
 app.get("/posts", async (req, res)  => {

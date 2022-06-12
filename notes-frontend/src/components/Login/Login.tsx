@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ChangeEvent, FormEvent, useState } from "react"
+import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { Posts } from "../Posts/Posts";
 import './Login.scss';
 
@@ -8,6 +8,8 @@ interface newUser {
     username: string,
     password: string
 }
+
+
 
 
 export function Login() {
@@ -19,6 +21,21 @@ export function Login() {
 
     const [isLoggedIn, setIsLoggedIn] = useState<Boolean>();
 
+    useEffect(() => {
+        let checkLogin = localStorage.getItem("loggedIn");
+        if (checkLogin) {
+            JSON.parse(checkLogin)
+            
+            if (checkLogin === "true") {
+                setIsLoggedIn(true);
+            } else if (checkLogin === "false") {
+                setIsLoggedIn(false);
+            }
+        }
+    }, [])
+
+    console.log("isLoggedIn: " + isLoggedIn)
+
     async function login(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
@@ -29,12 +46,8 @@ export function Login() {
             
         } catch(err) {
             console.log(err)
-            alert("Wrong username or password")
-            
-        }
-
-        
-        
+            alert("Wrong username or password")           
+        }   
     }
 
     

@@ -10,9 +10,9 @@ export function Nav() {
   let navigate = useNavigate();
   function logOut() {
     setIsLoggedIn(false)
-    localStorage.setItem("loggedIn", JSON.stringify(isLoggedIn));
+    localStorage.setItem("loggedIn", JSON.stringify(false));
     window.location.reload()
-    navigate("/")
+   
   }
 
   return (
@@ -21,7 +21,7 @@ export function Nav() {
       <h1>Baddagboken || Badedagbogen</h1>
       <div>
         <ul>
-            <li><Link to="/">Home</Link></li>
+            <li><Link to="/">Home/Login</Link></li>
             <li><Link to="/posts">Posts</Link></li>
             <li><Link to="/post">Write new post</Link></li>
                

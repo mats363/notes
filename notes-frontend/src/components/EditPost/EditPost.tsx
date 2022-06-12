@@ -1,8 +1,6 @@
 import { Editor } from "@tinymce/tinymce-react"
 import axios from "axios";
 import { useRef, useState } from "react";
-import { isPropertySignature } from "typescript";
-import { INewPost } from "../../models/INewPost";
 import { IPost } from "../../models/IPost";
 import { Post } from "../../models/Post";
 import './EditPost.scss';
@@ -14,6 +12,7 @@ interface IChildComponentProps {
 }
 export function EditPost(props: IChildComponentProps) {
     
+    const [disable, setDisable] = useState(true)
     const editorRef = useRef<any>();
     async function submit () {
         
@@ -21,7 +20,7 @@ export function EditPost(props: IChildComponentProps) {
             const content = {postContent: editorRef.current.getContent()};
             
            let response = await axios.patch<IPost>(`http://localhost:4000/posts/${props.post.id}`, content);
-           console.log(response.data)
+           alert("Post saved")
           }
     }
 
@@ -31,10 +30,10 @@ export function EditPost(props: IChildComponentProps) {
         initialValue={props.post.postContent}
         init={{
             
-            height: 500,
-            menubar: false,
+            height: 250,
+            menubar: true,
             plugins: [
-              
+              "charmap"
             ],
             toolbar: 'undo redo | formatselect | ' +
             'bold italic backcolor | alignleft aligncenter ' +
@@ -45,7 +44,7 @@ export function EditPost(props: IChildComponentProps) {
 
           
         />
-        <button onClick={submit}>Spara ändringar</button>
+        <button onClick={submit}>Save</button>
         {/* <h2>{props.post.postContent}</h2> */}
     
     </>)

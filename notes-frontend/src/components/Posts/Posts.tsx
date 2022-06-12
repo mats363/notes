@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { IPost } from "../../models/IPost";
 import { Post } from "../../models/Post";
 import { EditPost } from "../EditPost/EditPost";
@@ -12,8 +12,25 @@ import './Posts.scss';
 export function Posts() {
 
     const [allPosts, setAllPosts] = useState<Post[]>([]);
-    const [edit, setEdit] = useState(false);
+    const [postToEdit, setPostToEdit] = useState<Post>(new Post(0,"","",""))
     
+    
+
+    const [isLoggedIn, setIsLoggedIn] = useState<Boolean>();
+
+    useEffect(() => {
+        
+        let checkLogin = localStorage.getItem("loggedIn");
+        if (checkLogin) {
+            JSON.parse(checkLogin)
+            
+            if (checkLogin === "true") {
+                setIsLoggedIn(true);
+            } else if (checkLogin === "false") {
+                setIsLoggedIn(false);
+            }
+        }
+    }, [])
 
     useEffect(() => {
 
@@ -33,30 +50,41 @@ export function Posts() {
         });
 
         console.log(allPosts + " all posts")        
-    });
+    }, [allPosts]);
 
-    function toggle() {
-        setEdit(!edit)
-    }
+ 
+
+   
     
    let postHtml = allPosts.map((post) => {
        return (
+        
            <div key={post.id} className="postContainer">
                <h4 dangerouslySetInnerHTML={{ __html:post.postTitle}}></h4>
                <div dangerouslySetInnerHTML={{ __html:post.postContent}}></div>
-               <button onClick={toggle}>Edit document</button>
-               {edit && 
-               <EditPost post={post}></EditPost>
-            }
-               
-           </div>
+               <button onClick={() => {setPostToEdit(post)}}>Edit document</button>   
+           </div> 
        )
    })
 
     return (<>
-       <h1>All posts</h1>
-       <div>
-           <div>{postHtml}</div>
-       </div>
+        
+            {isLoggedIn && (
+                <div id="wrapper">
+                    <section className="posthtml">
+                        <div>{postHtml}</div>
+                    </section>
+                    <section className="postedit">
+                        <EditPost post={postToEdit}></EditPost>
+                    </section>
+                </div>
+            )}
+            
+            {!isLoggedIn && (
+                <div>
+                    <h3>Click <Link to="/">here</Link> to login</h3>
+                </div>
+            )}
+        
     </>)
 }

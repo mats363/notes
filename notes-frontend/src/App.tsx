@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
+
 
 function App() {
 
@@ -12,10 +12,14 @@ function App() {
   }
 
   return (
+    <>
     <div className="App">
-      <h1>Hejsan</h1>
+      <h1>Baddagboken</h1>
       <button onClick={logOut}>Log out</button>
     </div>
+
+    
+    </>
   );
 }
 

@@ -4,25 +4,24 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Login } from './components/Login';
-import { Post } from './components/Post';
-import { Posts } from './components/Posts';
-import { EditPost } from './components/EditPost';
-import { Protected } from './components/Protected';
+import { Login } from './components/Login/Login';
+import { Posts } from './components/Posts/Posts';
+import { Post } from './components/Post/Post';
+import { Nav } from './components/Nav/Nav';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    
     <BrowserRouter>
+    <Nav />
       <Routes>
-      <Route path="/" element={<Login/>}/>
-        <Route element={<Protected />}>
+      <Route path="/" element={<Login/>}/> 
           <Route path="/post" element={<Post/>}/>
           <Route path="/posts" element={<Posts/>}/>
-        </Route>
       </Routes>
     </BrowserRouter>
     

@@ -2,9 +2,12 @@ import { Editor } from "@tinymce/tinymce-react"
 import axios from "axios";
 import { useRef, useState } from "react";
 import { isPropertySignature } from "typescript";
-import { INewPost } from "../models/INewPost";
-import { IPost } from "../models/IPost";
-import { Post } from "../models/Post";
+import { INewPost } from "../../models/INewPost";
+import { IPost } from "../../models/IPost";
+import { Post } from "../../models/Post";
+import './EditPost.scss';
+
+
 
 interface IChildComponentProps {
     post: Post;

@@ -1,7 +1,9 @@
 import { Editor } from "@tinymce/tinymce-react"
 import axios from "axios";
 import { ChangeEvent, ChangeEventHandler, useRef, useState } from "react";
-import { INewPost } from "../models/INewPost";
+import { INewPost } from "../../models/INewPost";
+import './Post.scss';
+
 
 export function Post() {
     

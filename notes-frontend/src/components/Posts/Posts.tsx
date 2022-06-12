@@ -1,9 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
-import { IPost } from "../models/IPost";
-import { Post } from "../models/Post";
-import { EditPost } from "./EditPost";
+import { IPost } from "../../models/IPost";
+import { Post } from "../../models/Post";
+import { EditPost } from "../EditPost/EditPost";
+import './Posts.scss';
+
+
+
 
 export function Posts() {
 

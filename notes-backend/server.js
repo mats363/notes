@@ -26,9 +26,13 @@ let isLoggedIn;
 app.get("/posts", async (req, res)  => {
 
     try {
+        if (isLoggedIn) {
         const result = await connection.promise().execute("SELECT * FROM posts")
         console.log(result[0])
         res.json(result[0]);    
+        } else {
+            res.json("You are not logged in");
+        }
         
     } catch (err) {
         res.json("Could not fetch posts");
@@ -65,11 +69,16 @@ app.get("/posts/:id", async (req, res) => {
 app.patch("/posts/:id", async (req, res) => {
 
     try {
+
+        if (isLoggedIn) {
         const result = await connection.promise().execute(
             "UPDATE posts SET postContent = ? WHERE _id = ?",
             [req.body.postContent, req.params.id]
         )
         res.json(result)
+        } else {
+            res.json("You are not logged in")
+        }
     } catch (err) {
         console.log("Does not work. At all.")
     }
@@ -78,9 +87,9 @@ app.patch("/posts/:id", async (req, res) => {
 app.post("/login", (req, res, next) => {
     if (req.body.username === adminUser.username && req.body.password === adminUser.password) {
         isLoggedIn = true;
-        res.json("Rätt användarnamn och lösenord! " + isLoggedIn)
+        res.json(isLoggedIn)
     } else {
         isLoggedIn = false;
-        res.status(401).json("Fel användarnamn eller lösenord " + isLoggedIn)
+        res.status(401).json(isLoggedIn)
     }
 })

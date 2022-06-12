@@ -15,8 +15,7 @@ export class PostService {
                 console.log(postArray[0]);
                 return postArray;
             }
-           
-            
+             
 
         } catch (err) {
             console.log(err)
